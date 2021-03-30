@@ -91,7 +91,12 @@ const FirebaseCRUD = () => {
         </Grid.Row>
 
         <Grid.Row>
-          <Grid.Column></Grid.Column>
+          <Grid.Column>
+            <Segment >
+              <Header>User List</Header>
+
+            </Segment>
+          </Grid.Column>
         </Grid.Row>
       </Grid>
     </div>
