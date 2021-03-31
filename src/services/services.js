@@ -2,8 +2,11 @@ import firebase from "../firebase";
 
 const db = firebase.ref("/Users");
 
+
+
+
 export const getAll = () => {
-  return db;
+  return db
 };
 
 export const create = (user) => {

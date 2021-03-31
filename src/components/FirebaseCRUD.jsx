@@ -8,7 +8,7 @@ import {
   Header,
 } from "semantic-ui-react";
 import Menu from "./Menu";
-import { create } from "../services/services";
+import { create, getAll } from "../services/services";
 const FirebaseCRUD = () => {
   const [cFirstName, setCFirstName] = useState("");
   const [cLastName, setCLastName] = useState("");
@@ -24,7 +24,7 @@ const FirebaseCRUD = () => {
     create(data);
     console.log("clicked");
   };
-
+console.log(getAll().child('Users'))
   return (
     <div>
       <Menu />
