@@ -17,11 +17,11 @@ const FirebaseCRUD = () => {
   const [cLastName, setCLastName] = useState("");
   const [uFirstName, setUFirstName] = useState("");
   const [uLastName, setULastName] = useState("");
-  const [user, setUser] = useState([])
-  const data = {
+  const [user, setUser] = useState()
+  const data = [{
     firstName: cFirstName,
     lasrName: cLastName,
-  };
+  }];
 
   const handelSubmit = () => {
     create(data);
@@ -29,17 +29,30 @@ const FirebaseCRUD = () => {
   };
 
 
-
+var firstName = []
+var lastName = []
   useEffect(  () => {
-
+    
    getAll().on(
-      "child_added",
+      "value",
       (snapshot) => {
+       
         const res =  snapshot.val();
-        const data =  Object.values(res)
-        console.log(data);
-
-   
+        console.log(res);
+        const data = Object.values(res);
+        const main = data.map((e)=>e[0])
+        console.log(main.map((e)=>e.firstName));
+        setUser(main)
+        // snapshot.forEach((item,key) => {
+        //   console.log(item.key,item.val());
+        //   console.log(key)
+        //   firstName.push(item.key,item.val())
+        //   lastName.push(item.val())
+        // })
+        // setUser(user.push({res}))
+        // console.log(firstName)
+        // console.log(lastName)
+     
       },
       (errorObject) => {
         console.log("The read failed: " + errorObject.code);
@@ -49,7 +62,7 @@ const FirebaseCRUD = () => {
   
   
   []);
-
+  console.log('Users',user?.map((user) => user.firstName));
   return (
     <div>
       <Menu />
@@ -130,13 +143,13 @@ const FirebaseCRUD = () => {
 
                 <Table.Body>
       
-      {
-          
+      { user?.map((user) => (
           <Table.Row>
-          <Table.Cell>{data.firstName}</Table.Cell>
-          <Table.Cell>{data.lastName}</Table.Cell>
-          <Table.Cell negative>None</Table.Cell>
+          <Table.Cell>{user.firstName}</Table.Cell>
+          <Table.Cell>{user.lasrName}</Table.Cell>
+          <Table.Cell ></Table.Cell>
         </Table.Row>
+      ))
       }
     
      

@@ -1,6 +1,6 @@
 import firebase from "../firebase";
 
-const db = firebase.ref("/Users");
+const db = firebase.ref("/User");
 
 
 
