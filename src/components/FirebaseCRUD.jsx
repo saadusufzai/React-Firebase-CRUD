@@ -39,9 +39,7 @@ const FirebaseCRUD = () => {
         const data =  Object.values(res)
         console.log(res);
 
-        for (let i = 0; i < res.length; i++) {
-            console.log(res[i]);
-        }
+   
       },
       (errorObject) => {
         console.log("The read failed: " + errorObject.code);
