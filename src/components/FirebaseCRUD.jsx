@@ -37,7 +37,7 @@ const FirebaseCRUD = () => {
       (snapshot) => {
         const res =  snapshot.val();
         const data =  Object.values(res)
-        console.log(res);
+        console.log(data);
 
    
       },
