@@ -11,17 +11,20 @@ import {
 } from "semantic-ui-react";
 
 import Menu from "./Menu";
-import { create, getAll } from "../services/services";
+import { create, getAll,remove,update } from "../services/services";
 const FirebaseCRUD = () => {
   const [cFirstName, setCFirstName] = useState("");
   const [cLastName, setCLastName] = useState("");
   const [uFirstName, setUFirstName] = useState("");
   const [uLastName, setULastName] = useState("");
-  const [user, setUser] = useState()
-  const data = [{
-    firstName: cFirstName,
-    lasrName: cLastName,
-  }];
+  const [user, setUser] = useState();
+  const [key, setKey] = useState();
+  const data = [
+    {
+      firstName: cFirstName,
+      lasrName: cLastName,
+    },
+  ];
 
   const handelSubmit = () => {
     create(data);
@@ -29,40 +32,36 @@ const FirebaseCRUD = () => {
   };
 
 
-var firstName = []
-var lastName = []
-  useEffect(  () => {
-    
-   getAll().on(
+  useEffect(() => {
+    getAll().on(
       "value",
       (snapshot) => {
-       
-        const res =  snapshot.val();
-        console.log(res);
+        const res = snapshot.val();
+        // console.log(res);
         const data = Object.values(res);
-        const main = data.map((e)=>e[0])
-        console.log(main.map((e)=>e.firstName));
-        setUser(main)
-        // snapshot.forEach((item,key) => {
-        //   console.log(item.key,item.val());
-        //   console.log(key)
-        //   firstName.push(item.key,item.val())
-        //   lastName.push(item.val())
-        // })
-        // setUser(user.push({res}))
-        // console.log(firstName)
-        // console.log(lastName)
-     
+        const main = data.map((e) => e[0]);
+        console.log(key);
+        setUser(main);
+        setKey(Object.keys(res));
       },
       (errorObject) => {
         console.log("The read failed: " + errorObject.code);
       }
     );
-  }, 
-  
-  
-  []);
-  console.log('Users',user?.map((user) => user.firstName));
+  }, []);
+
+ 
+
+    const handelDelete = (id) => {
+      console.log('delete clicked',id)
+
+      console.log(key[id])
+      remove(key[id])
+    }
+    const handelEdit = (id) => {
+      console.log('Edit Clicked clicked',id)
+    }
+
   return (
     <div>
       <Menu />
@@ -127,8 +126,8 @@ var lastName = []
             </Segment>
           </Grid.Column>
         </Grid.Row>
-        </Grid>
-        <Grid container >
+      </Grid>
+      <Grid container>
         <Grid.Row>
           <Grid.Column columns="one">
             <Segment>
@@ -143,20 +142,17 @@ var lastName = []
                 </Table.Header>
 
                 <Table.Body>
-      
-      { user?.map((user) => (
-          <Table.Row>
-          <Table.Cell>{user.firstName}</Table.Cell>
-          <Table.Cell>{user.lasrName}</Table.Cell>
-          <Table.Cell ><Icon color='red'  name='user delete' /> <Icon  fitted='true' color='blue' name='edit' /> </Table.Cell>
-        </Table.Row>
-      ))
-      }
-    
-     
-    
-    </Table.Body>
-
+                  {user?.map((user,key) => (
+                    <Table.Row index={key}>
+                      <Table.Cell>{user.firstName}</Table.Cell>
+                      <Table.Cell>{user.lasrName}</Table.Cell>
+                      <Table.Cell>
+                        <Icon  onClick={()=>handelDelete(key)} color="red" name="user delete" />{" "}
+                        <Icon onClick={()=>handelEdit(key)} fitted="true" color="blue" name="edit" />{" "}
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                </Table.Body>
               </Table>
             </Segment>
           </Grid.Column>
