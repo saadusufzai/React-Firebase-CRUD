@@ -127,9 +127,10 @@ var lastName = []
             </Segment>
           </Grid.Column>
         </Grid.Row>
-
+        </Grid>
+        <Grid container >
         <Grid.Row>
-          <Grid.Column>
+          <Grid.Column columns="one">
             <Segment>
               <Header>User List</Header>
               <Table celled>
@@ -147,7 +148,7 @@ var lastName = []
           <Table.Row>
           <Table.Cell>{user.firstName}</Table.Cell>
           <Table.Cell>{user.lasrName}</Table.Cell>
-          <Table.Cell ></Table.Cell>
+          <Table.Cell ><Icon color='red'  name='user delete' /> <Icon  fitted='true' color='blue' name='edit' /> </Table.Cell>
         </Table.Row>
       ))
       }
